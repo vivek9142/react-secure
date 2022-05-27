@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './Navigation';
 import Jumbotron from './Jumbotron';
 import Feed from './Feed';
@@ -29,13 +29,11 @@ class App extends Component {
         <div className="container">
           <Navigation />
           <Jumbotron title={this.state.jumbotronTitle}/>
-          <Switch>
-            <Route path="/contact" component={Contact}/>
-            <Route path="/about" component={About}/>
-            <Route exact path="/" render={(props) => (
-              <Feed feeds={this.state.feeds} />
-            )} />
-          </Switch>
+          <Routes>
+            <Route path="/contact" element={<Contact/>}/>
+            <Route path="/about" element={<About/>}/>
+            <Route exact path="/" element={<Feed feeds={this.state.feeds} />} />
+          </Routes>
           <div className="footer">
                 <p>&copy; {this.state.name} Inc.</p>
           </div>
