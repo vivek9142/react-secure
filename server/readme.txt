@@ -1,0 +1,1 @@
+npm i -D babel-cli babel-preset-env babel-preset-stage-0 && npm i cors express express-jwt jwks-rsa nodemon
