@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './Navigation';
+
+import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
+import history from '../history';
+import Loading from './Loading';
+
 import Jumbotron from './Jumbotron';
 import Feed from './Feed';
 import Contact from './Contact';
@@ -18,14 +24,19 @@ class App extends Component {
     }
   }
 
-  UNSAFE_componentWillMount() {
-    this.setState({
-      feeds: data,
-    })
+  async componentDidMount() {
+    const url = 'http://localhost:4000/courses';
+    const res = await axios.get(url);
+    return this.setState({feeds:res.data});
   }
+
   render() {
+    const {loading}  = useAuth0;
+    
+    if(loading) return <Loading/>
+
     return (
-      <Router>
+      <Router history={history}>
         <div className="container">
           <Navigation />
           <Jumbotron title={this.state.jumbotronTitle}/>
